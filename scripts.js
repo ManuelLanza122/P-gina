@@ -13,6 +13,22 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
     }
 });
 
+// Población del select de países
+const selectPais = document.getElementById("pais");
+const paises = [
+    "Afganistán", "Alemania", "Argentina", "Australia", "Brasil",
+    "Canadá", "Chile", "Colombia", "España", "Estados Unidos",
+    "Francia", "India", "Japón", "México", "Perú", "Reino Unido",
+    "Rusia", "Sudáfrica"
+];
+
+paises.forEach(pais => {
+    const option = document.createElement("option");
+    option.value = pais;
+    option.textContent = pais;
+    selectPais.appendChild(option);
+});
+
 // Cargar solicitudes pendientes
 function loadPendingRequests() {
     const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
@@ -21,7 +37,7 @@ function loadPendingRequests() {
 
     pendingRequests.forEach((request, index) => {
         const li = document.createElement('li');
-        li.textContent = `${request.nombre} - ${request.categoria}`;
+        li.textContent = `${request.nombre} - ${request.categoria} - ${request.pais}`;
         const approveButton = document.createElement('button');
         approveButton.textContent = 'Aceptar';
         approveButton.onclick = () => approveRequest(index);
@@ -35,7 +51,7 @@ function approveRequest(index) {
     const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
     const approvedGroups = JSON.parse(localStorage.getItem('approvedGroups')) || [];
 
-    approvedGroups.push({ ...pendingRequests[index], views: 0 }); // Agregamos campo 'views'
+    approvedGroups.push({ ...pendingRequests[index], views: 0 });
     localStorage.setItem('approvedGroups', JSON.stringify(approvedGroups));
 
     pendingRequests.splice(index, 1);
@@ -60,7 +76,9 @@ function loadApprovedGroups() {
         const ul = document.createElement('ul');
         groupedByCategory[categoria].forEach((group, index) => {
             const li = document.createElement('li');
-            li.innerHTML = `${group.nombre} - <a href="${group.link}" target="_blank" onclick="incrementView(${index})">Enlace</a> (Vistas: ${group.views})`;
+            li.innerHTML = `${group.nombre} (${group.pais}) - 
+                <a href="${group.link}" target="_blank" onclick="incrementView(${index})">
+                Enlace</a> (Vistas: ${group.views})`;
             ul.appendChild(li);
         });
         section.appendChild(ul);
@@ -88,7 +106,7 @@ function searchByCategory(category) {
     const approvedGroups = JSON.parse(localStorage.getItem('approvedGroups')) || [];
     const filteredGroups = approvedGroups
         .filter(group => group.categoria.toLowerCase() === category.toLowerCase())
-        .sort((a, b) => (b.views || 0) - (a.views || 0)); // Ordenar por vistas
+        .sort((a, b) => (b.views || 0) - (a.views || 0));
 
     displaySearchResults(filteredGroups);
 }
@@ -96,7 +114,7 @@ function searchByCategory(category) {
 // Mostrar los resultados de la búsqueda
 function displaySearchResults(groups) {
     const approvedList = document.getElementById('approved-list');
-    approvedList.innerHTML = ''; // Limpiar resultados
+    approvedList.innerHTML = '';
 
     if (groups.length === 0) {
         approvedList.innerHTML = '<p>No se encontraron resultados.</p>';
@@ -106,7 +124,8 @@ function displaySearchResults(groups) {
     const ul = document.createElement('ul');
     groups.forEach(group => {
         const li = document.createElement('li');
-        li.innerHTML = `${group.nombre} - <a href="${group.link}" target="_blank">Enlace</a> (Vistas: ${group.views || 0})`;
+        li.innerHTML = `${group.nombre} (${group.pais}) - 
+            <a href="${group.link}" target="_blank">Enlace</a> (Vistas: ${group.views || 0})`;
         ul.appendChild(li);
     });
 
