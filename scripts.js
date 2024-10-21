@@ -15,13 +15,7 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
 
 // Población del select de países
 const selectPais = document.getElementById("pais");
-const paises = [
-    "Afganistán", "Alemania", "Argentina", "Australia", "Brasil",
-    "Canadá", "Chile", "Colombia", "España", "Estados Unidos",
-    "Francia", "India", "Japón", "México", "Perú", "Reino Unido",
-    "Rusia", "Sudáfrica"
-];
-
+const paises = ["Afganistán", "Alemania", "Argentina", "Australia", "Brasil", "Canadá", "Chile", "Colombia", "España", "Estados Unidos", "Francia", "India", "Japón", "México", "Perú", "Reino Unido", "Rusia", "Sudáfrica"];
 paises.forEach(pais => {
     const option = document.createElement("option");
     option.value = pais;
@@ -60,7 +54,8 @@ function approveRequest(index) {
     loadPendingRequests();
 }
 
-// Cargar los grupos aprobados en index.html
+// Cargar grupos aprobados
+document.addEventListener('DOMContentLoaded', loadApprovedGroups);
 function loadApprovedGroups() {
     const approvedGroups = JSON.parse(localStorage.getItem('approvedGroups')) || [];
     const approvedList = document.getElementById('approved-list');
@@ -74,11 +69,9 @@ function loadApprovedGroups() {
         section.appendChild(title);
 
         const ul = document.createElement('ul');
-        groupedByCategory[categoria].forEach((group, index) => {
+        groupedByCategory[categoria].forEach(group => {
             const li = document.createElement('li');
-            li.innerHTML = `${group.nombre} (${group.pais}) - 
-                <a href="${group.link}" target="_blank" onclick="incrementView(${index})">
-                Enlace</a> (Vistas: ${group.views})`;
+            li.innerHTML = `${group.nombre} (${group.pais}) - <a href="${group.link}" target="_blank">Enlace</a> (Vistas: ${group.views})`;
             ul.appendChild(li);
         });
         section.appendChild(ul);
@@ -86,14 +79,7 @@ function loadApprovedGroups() {
     });
 }
 
-// Incrementar las vistas de un grupo
-function incrementView(index) {
-    const approvedGroups = JSON.parse(localStorage.getItem('approvedGroups')) || [];
-    approvedGroups[index].views = (approvedGroups[index].views || 0) + 1;
-    localStorage.setItem('approvedGroups', JSON.stringify(approvedGroups));
-}
-
-// Agrupar grupos por categoría
+// Agrupar por categoría
 function groupByCategory(groups) {
     return groups.reduce((acc, group) => {
         (acc[group.categoria] = acc[group.categoria] || []).push(group);
@@ -101,35 +87,22 @@ function groupByCategory(groups) {
     }, {});
 }
 
-// Función de búsqueda de grupos por categoría
-function searchByCategory(category) {
-    const approvedGroups = JSON.parse(localStorage.getItem('approvedGroups')) || [];
-    const filteredGroups = approvedGroups
-        .filter(group => group.categoria.toLowerCase() === category.toLowerCase())
-        .sort((a, b) => (b.views || 0) - (a.views || 0));
+// Registrar grupo
+document.getElementById('registro-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const newGroup = {
+        nombre: document.getElementById('nombre').value,
+        link: document.getElementById('link').value,
+        categoria: document.getElementById('categoria').value,
+        descripcion: document.getElementById('descripcion').value,
+        pais: document.getElementById('pais').value,
+    };
 
-    displaySearchResults(filteredGroups);
-}
+    const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
+    pendingRequests.push(newGroup);
+    localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
 
-// Mostrar los resultados de la búsqueda
-function displaySearchResults(groups) {
-    const approvedList = document.getElementById('approved-list');
-    approvedList.innerHTML = '';
-
-    if (groups.length === 0) {
-        approvedList.innerHTML = '<p>No se encontraron resultados.</p>';
-        return;
-    }
-
-    const ul = document.createElement('ul');
-    groups.forEach(group => {
-        const li = document.createElement('li');
-        li.innerHTML = `${group.nombre} (${group.pais}) - 
-            <a href="${group.link}" target="_blank">Enlace</a> (Vistas: ${group.views || 0})`;
-        ul.appendChild(li);
-    });
-
-    approvedList.appendChild(ul);
-}
-
-document.addEventListener('DOMContentLoaded', loadApprovedGroups);
+    alert('Grupo enviado para aprobación.');
+    e.target.reset();
+});
+        
