@@ -1,0 +1,193 @@
+/* Estilos globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #000; /* Fondo negro */
+    color: #d1d1d1; /* Texto claro */
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Encabezado */
+header {
+    background-color: #1a1a1a;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    color: #bb86fc; /* Morado claro */
+    font-size: 2rem;
+}
+
+/* Navegación */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+nav a {
+    color: #bb86fc;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para el campo de búsqueda */
+#buscador {
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+#buscador input[type="text"] {
+    width: calc(100% - 40px);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+}
+
+#buscador button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #bb86fc;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#buscador button:hover {
+    background-color: #9a68cc;
+}
+
+/* Sección principal */
+main {
+    flex: 1;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h2 {
+    color: #bb86fc;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+/* Formularios */
+form {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(187, 134, 252, 0.3);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #d1d1d1;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+input, select {
+    background-color: #333;
+    color: #fff;
+}
+
+input:focus, select:focus {
+    outline: 2px solid #bb86fc;
+}
+
+button {
+    background-color: #bb86fc;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #9a68cc;
+}
+
+/* Listado de solicitudes */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #1a1a1a;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(187, 134, 252, 0.3);
+}
+
+li strong {
+    color: #bb86fc;
+}
+
+/* Footer */
+footer {
+    background-color: #1a1a1a;
+    text-align: center;
+    padding: 10px;
+    color: #777;
+}
+
+footer a {
+    color: #bb86fc;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsivo para dispositivos móviles */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+
+    #buscador {
+        width: 100%;
+    }
+}
+
