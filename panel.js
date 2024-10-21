@@ -1,72 +1,47 @@
-// Configura el usuario y contraseña permitidos
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "1234"; // Cambia esta contraseña por seguridad
-
-// Referencias a elementos del DOM
-const loginForm = document.getElementById("login-form");
-const approvalSection = document.getElementById("approval-section");
-const solicitudesList = document.getElementById("solicitudes-list");
-
-// Manejo del inicio de sesión
-loginForm.addEventListener("submit", (e) => {
+// panel.js
+document.getElementById('login-form').addEventListener('submit', function (e) {
     e.preventDefault();
+    // Validación de usuario y contraseña (hardcodeado para este ejemplo)
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    if (username === ADMIN_USER && password === ADMIN_PASS) {
-        alert("Inicio de sesión exitoso.");
-        mostrarPanel();
+    if (username === "admin" && password === "admin") {
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('approval-section').style.display = 'block';
+        loadPendingRequests();
     } else {
-        alert("Credenciales incorrectas.");
+        alert('Usuario o contraseña incorrectos');
     }
 });
 
-function mostrarPanel() {
-    // Ocultamos la sección de login y mostramos la de aprobación
-    document.getElementById("login-section").style.display = "none";
-    approvalSection.style.display = "block";
+// Función para cargar solicitudes pendientes
+function loadPendingRequests() {
+    const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
+    const solicitudesList = document.getElementById('solicitudes-list');
+    solicitudesList.innerHTML = '';
 
-    // Cargamos las solicitudes desde el LocalStorage
-    const solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-    solicitudesList.innerHTML = "";
-
-    solicitudes.forEach((grupo, index) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-            <strong>${grupo.nombre}</strong> - ${grupo.categoria} <br>
-            <a href="${grupo.link}" target="_blank">Visitar Grupo</a> <br>
-            País: ${grupo.pais} <br>
-            <button onclick="aprobarGrupo(${index})">Aprobar</button>
-            <button onclick="rechazarGrupo(${index})">Rechazar</button>
-        `;
+    pendingRequests.forEach((request, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${request.nombre} - ${request.categoria}`;
+        const approveButton = document.createElement('button');
+        approveButton.textContent = 'Aceptar';
+        approveButton.onclick = () => approveRequest(index);
+        li.appendChild(approveButton);
         solicitudesList.appendChild(li);
     });
 }
 
-function aprobarGrupo(index) {
-    let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-    let grupos = JSON.parse(localStorage.getItem("grupos")) || [];
+// Función para aprobar una solicitud
+function approveRequest(index) {
+    const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
+    const approvedGroups = JSON.parse(localStorage.getItem('approvedGroups')) || [];
 
-    // Mover el grupo aprobado a la lista de grupos publicados
-    grupos.push(solicitudes[index]);
-    localStorage.setItem("grupos", JSON.stringify(grupos));
+    approvedGroups.push(pendingRequests[index]);
+    localStorage.setItem('approvedGroups', JSON.stringify(approvedGroups));
 
-    // Eliminar del listado de solicitudes
-    solicitudes.splice(index, 1);
-    localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
+    // Eliminar de solicitudes pendientes
+    pendingRequests.splice(index, 1);
+    localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
 
-    alert("Grupo aprobado y publicado.");
-    mostrarPanel();
-}
-
-function rechazarGrupo(index) {
-    let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-
-    // Eliminar del listado de solicitudes
-    solicitudes.splice(index, 1);
-    localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
-
-    alert("Grupo rechazado.");
-    mostrarPanel();
+    loadPendingRequests();
 }
