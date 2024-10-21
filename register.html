@@ -1,61 +1,21 @@
-Yo<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Registra tu grupo para que sea aprobado y publicado en el directorio global.">
-    <meta name="keywords" content="registro de grupos, formulario de grupos, directorio de grupos, registrar grupo, grupos de Telegram">
-    <meta name="author" content="Directorio de Grupos">
-    <meta property="og:title" content="Registro de Grupos | Directorio Global">
-    <meta property="og:description" content="Ingresa tus datos y registra tu grupo para aparecer en el directorio global.">
-    <meta property="og:url" content="https://midominio.com/registro.html">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://midominio.com/images/registro-banner.jpg">
-    <meta name="robots" content="index, follow">
-    <title>Registro de Grupos | Directorio Global</title>
+    <title>Registrar Grupo</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Registro de Nuevo Grupo</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="register.html">Registro</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section aria-labelledby="titulo-registro">
-            <h2 id="titulo-registro">Formulario de Registro</h2>
-            <p>Completa este formulario para enviar tu grupo para aprobación. Una vez aprobado, aparecerá en el directorio global.</p>
-
-            <form id="registro-form" aria-label="Formulario de registro de grupos">
-                <label for="nombre">Nombre del Grupo:</label>
-                <input type="text" id="nombre" name="nombre" required placeholder="Ej: Comunidad de Programación" maxlength="50">
-
-                <label for="link">Enlace del Grupo:</label>
-                <input type="url" id="link" name="link" required placeholder="https://t.me/tu-grupo">
-
-                <label for="categoria">Categoría:</label>
-                <input type="text" id="categoria" name="categoria" required placeholder="Ej: Tecnología" maxlength="30">
-
-                <label for="descripcion">Descripción (Máx. 60 caracteres):</label>
-                <input type="text" id="descripcion" name="descripcion" maxlength="60" required placeholder="Descripción breve del grupo">
-
-                <label for="pais">País:</label>
-                <select id="pais" name="pais" required></select>
-
-                <button type="submit">Enviar para Aprobación</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2024 - Directorio Global de Grupos | <a href="https://midominio.com/politica-privacidad">Política de Privacidad</a></p>
-    </footer>
-
-    <script src="scripts.js"></script>
+    <h1>Registro de Nuevo Grupo</h1>
+    <form id="registro-form">
+        <input type="text" id="nombre" placeholder="Nombre del Grupo" required>
+        <input type="url" id="link" placeholder="Enlace del Grupo" required>
+        <input type="text" id="categoria" placeholder="Categoría" required>
+        <textarea id="descripcion" placeholder="Descripción" maxlength="60" required></textarea>
+        <select id="pais" required></select>
+        <button type="submit">Enviar</button>
+    </form>
 </body>
 </html>
