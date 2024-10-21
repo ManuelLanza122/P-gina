@@ -1,35 +1,44 @@
-const selectPais = document.getElementById("pais");
-const paises = [
-    "Afganistán", "Alemania", "Argentina", "Australia", "Brasil", 
-    "Canadá", "Chile", "Colombia", "España", "Estados Unidos", 
-    "Francia", "India", "Japón", "México", "Perú", "Reino Unido", 
-    "Rusia", "Sudáfrica"
-];
-
-// Poblamos el select de países
-paises.forEach(pais => {
-    const option = document.createElement("option");
-    option.value = pais;
-    option.textContent = pais;
-    selectPais.appendChild(option);
-});
-
-// Manejo del formulario
-document.getElementById("registro-form").addEventListener("submit", (e) => {
+// scripts.js
+document.getElementById('registro-form').addEventListener('submit', function (e) {
     e.preventDefault();
+    
+    const nombre = document.getElementById('nombre').value;
+    const link = document.getElementById('link').value;
+    const categoria = document.getElementById('categoria').value;
+    const descripcion = document.getElementById('descripcion').value;
+    const pais = document.getElementById('pais').value;
 
-    const grupo = {
-        nombre: document.getElementById("nombre").value,
-        link: document.getElementById("link").value,
-        categoria: document.getElementById("categoria").value,
-        descripcion: document.getElementById("descripcion").value,
-        pais: selectPais.value
+    const newRequest = {
+        nombre,
+        link,
+        categoria,
+        descripcion,
+        pais
     };
 
-    let solicitudes = JSON.parse(localStorage.getItem("solicitudes")) || [];
-    solicitudes.push(grupo);
-    localStorage.setItem("solicitudes", JSON.stringify(solicitudes));
+    // Almacenar la solicitud en pendingRequests
+    const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
+    pendingRequests.push(newRequest);
+    localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
 
-    alert("Registro enviado para aprobación.");
-    window.location.href = "index.html";
+    alert('Solicitud enviada. Se revisará en el panel de aprobación.');
+    document.getElementById('registro-form').reset();
 });
+
+// Cargar grupos aprobados al cargar index.html
+function loadApprovedGroups() {
+    const approvedGroups = JSON.parse(localStorage.getItem('approvedGroups')) || [];
+    const gruposListado = document.getElementById('grupos-listado');
+    gruposListado.innerHTML = '';
+
+    approvedGroups.forEach(group => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${group.nombre}</strong> - ${group.categoria} <a href="${group.link}" target="_blank">Ir al grupo</a>`;
+        gruposListado.appendChild(li);
+    });
+}
+
+// Llamar a la función al cargar la página
+if (window.location.pathname.endsWith('index.html')) {
+    loadApprovedGroups();
+}
