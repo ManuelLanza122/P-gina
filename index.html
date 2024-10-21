@@ -45,28 +45,56 @@
       "url": "https://midominio.com"
     }
     </script>
-</head>
 <body>
     <header>
-        <h1>Directorio de Grupos</h1>
+        <h1>Registrar Grupo</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Inicio</a></li>
-                <li><a href="register.html">Registro</a></li>
-                <li><a href="panel.html" id="admin-panel">Panel de Aprobación</a></li>
+                <li><a href="registro.html">Registrar Grupo</a></li>
+                <li><a href="panel.html">Panel de Aprobación</a></li>
             </ul>
         </nav>
-        <input type="text" id="searchBar" placeholder="Buscar por categoría...">
     </header>
 
     <main>
-        <section id="categories-container" aria-live="polite">
-            <!-- Aquí se mostrarán los grupos aprobados -->
-        </section>
+        <h2>Formulario de Registro</h2>
+        <form id="registro-form">
+            <label for="nombre">Nombre del Grupo:</label>
+            <input type="text" id="nombre" required>
+
+            <label for="link">Enlace al Grupo:</label>
+            <input type="url" id="link" required>
+
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" required>
+                <option value="">Selecciona una categoría</option>
+                <option value="Tecnología">Tecnología</option>
+                <option value="Ciencia">Ciencia</option>
+                <option value="Arte">Arte</option>
+                <option value="Música">Música</option>
+                <option value="Deportes">Deportes</option>
+            </select>
+
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" maxlength="60" required>
+
+            <label for="pais">País:</label>
+            <select id="pais" required>
+                <option value="">Selecciona tu país</option>
+                <option value="Argentina">Argentina</option>
+                <option value="España">España</option>
+                <option value="México">México</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Chile">Chile</option>
+            </select>
+
+            <button type="submit">Enviar Solicitud</button>
+        </form>
     </main>
 
     <footer>
-        <p>© 2024 - Directorio de Grupos en Colombia | <a href="https://midominio.com">Política de Privacidad</a></p>
+        <p>&copy; 2024 Grupos de Interés. Todos los derechos reservados.</p>
     </footer>
 
     <script src="scripts.js"></script>
