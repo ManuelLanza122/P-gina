@@ -1,7 +1,8 @@
-// panel.js
+// panel.js / scripts.js
+
+// Manejo del formulario de inicio de sesión
 document.getElementById('login-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    // Validación de usuario y contraseña (hardcodeado para este ejemplo)
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
@@ -14,7 +15,7 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
     }
 });
 
-// Función para cargar solicitudes pendientes
+// Cargar solicitudes pendientes
 function loadPendingRequests() {
     const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
     const solicitudesList = document.getElementById('solicitudes-list');
@@ -31,7 +32,7 @@ function loadPendingRequests() {
     });
 }
 
-// Función para aprobar una solicitud
+// Aprobar una solicitud
 function approveRequest(index) {
     const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
     const approvedGroups = JSON.parse(localStorage.getItem('approvedGroups')) || [];
@@ -39,9 +40,24 @@ function approveRequest(index) {
     approvedGroups.push(pendingRequests[index]);
     localStorage.setItem('approvedGroups', JSON.stringify(approvedGroups));
 
-    // Eliminar de solicitudes pendientes
     pendingRequests.splice(index, 1);
     localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
 
     loadPendingRequests();
 }
+
+// Cargar los grupos aprobados en el index.html
+function loadApprovedGroups() {
+    const approvedGroups = JSON.parse(localStorage.getItem('approvedGroups')) || [];
+    const approvedList = document.getElementById('approved-list');
+    approvedList.innerHTML = '';
+
+    approvedGroups.forEach(group => {
+        const li = document.createElement('li');
+        li.textContent = `${group.nombre} - ${group.categoria}`;
+        approvedList.appendChild(li);
+    });
+}
+
+// Llamar a la función para cargar los grupos aprobados cuando se cargue la página
+document.addEventListener('DOMContentLoaded', loadApprovedGroups);
