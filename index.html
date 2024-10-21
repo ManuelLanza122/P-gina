@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Meta Tags Básicas -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Directorio de grupos por categorías: tecnología, educación, entretenimiento y más. Encuentra y comparte enlaces a grupos relevantes.">
+    <meta name="keywords" content="grupos, categorías, directorio, enlaces, tecnología, educación, entretenimiento, Colombia">
+    <meta name="author" content="Directorio de Grupos">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph (para compartir en redes) -->
+    <meta property="og:title" content="Directorio de Grupos por Categorías">
+    <meta property="og:description" content="Encuentra grupos organizados por categorías como tecnología, educación y más.">
+    <meta property="og:image" content="img/preview.png">
+    <meta property="og:url" content="https://midominio.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Directorio de Grupos por Categorías">
+    <meta name="twitter:description" content="Encuentra y comparte grupos por categoría.">
+    <meta name="twitter:image" content="img/preview.png">
+
+    <title>Directorio de Grupos | Categorías de Tecnología, Educación y Más</title>
+
+    <!-- Recursos Preconectados para Mejorar Rendimiento -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Datos Estructurados Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Directorio de Grupos",
+      "description": "Encuentra y comparte enlaces a grupos categorizados.",
+      "author": {
+        "@type": "Person",
+        "name": "Directorio de Grupos"
+      },
+      "url": "https://midominio.com"
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Directorio de Grupos</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="registro.html">Registro</a></li>
+                <li><a href="panel.html" id="admin-panel">Panel de Aprobación</a></li>
+            </ul>
+        </nav>
+        <input type="text" id="searchBar" placeholder="Buscar por categoría...">
+    </header>
+
+    <main>
+        <section id="categories-container" aria-live="polite">
+            <!-- Aquí se mostrarán los grupos aprobados -->
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 - Directorio de Grupos en Colombia | <a href="https://midominio.com">Política de Privacidad</a></p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
