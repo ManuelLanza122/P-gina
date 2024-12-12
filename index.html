@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Ver Anuncios</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anuncio Intersticial</title>
+    <!-- Script de Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
+        // Configuración del anuncio intersticial
         (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-app-pub-2787840408366636~3769686248",
+            google_ad_client: "ca-app-pub-2787840408366636",
             enable_page_level_ads: true
         });
     </script>
 </head>
 <body>
-    <h1>Gracias por visitar</h1>
-    <p>Por favor, interactúa con los anuncios para continuar.</p>
-    <!-- Bloque de anuncios -->
-    <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-app-pub-2787840408366636~3769686248"
-        data-ad-slot="1234567890"
-        data-ad-format="auto"></ins>
+    <h1>¡Gracias por visitar!</h1>
+    <p>Espere un momento mientras se carga el anuncio...</p>
+    
+    <!-- Script para mostrar el anuncio intersticial -->
     <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+        // Muestra un anuncio intersticial automáticamente
+        window.onload = function() {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        };
     </script>
 </body>
 </html>
